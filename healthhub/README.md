@@ -33,24 +33,14 @@ npm run test:healthhub -- --ui
 
 Das Script generiert vor dem Start automatisch Playwright-Tests aus den Features. In der UI erscheinen dann sowohl die Gherkin-Szenarien als auch die normalen `*.spec.ts`-Tests.
 
-## Gherkin / Cucumber BDD
+## Gherkin / BDD (playwright-bdd)
 
-Die Gherkin-Szenarien liegen in `features/`. Für die Playwright-Test-UI werden sie von `playwright-bdd` in native Playwright-Tests übersetzt; deren Step-Definitionen liegen in `features/playwright-steps/`. Die separate Cucumber.js-Ausführung verwendet `features/step-definitions/` und `features/support/`. Beide Varianten verwenden dieselbe Komponenten-Fassade.
+Die Gherkin-Szenarien liegen in `features/`. `playwright-bdd` übersetzt sie in native Playwright-Tests (`tests/bdd-generated/`), die Step-Definitionen liegen in `features/playwright-steps/` und verwenden die Komponenten-Fassade `@library/components.fassade.spec`. Gestartet werden sie mit `npm run test:healthhub` (siehe oben).
 
-```powershell
-npm run bdd:healthhub
-```
-
-Mit sichtbarem Chromium:
+Die BDD-Szenarien verwenden `env.local.json` und erzeugen im Trainingskonto einen Testtermin bzw. einen Test-Medikamenteneintrag. Zum sicheren Prüfen, ob alle Features und Steps zusammenpassen, ohne den Browser zu starten:
 
 ```powershell
-npm run bdd:healthhub:headed
-```
-
-Die BDD-Szenarien verwenden `env.local.json` und erzeugen im Trainingskonto einen Testtermin bzw. einen Test-Medikamenteneintrag. Zum sicheren Prüfen, ob alle Features und Steps geladen werden, ohne den Browser zu starten:
-
-```powershell
-npx cucumber-js --config healthhub/cucumber.cjs --dry-run
+npx bddgen --config healthhub/playwright.config.ts
 ```
 
 Den HealthHub-Testreport öffnen (nach einem Testlauf):

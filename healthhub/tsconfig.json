@@ -4,8 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@library/*": ["./library/*"],
-      "@support/*": ["./features/support/*"]
+      "@library/*": ["./library/*"]
     },
     "strict": true,
     "types": ["node"],

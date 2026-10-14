@@ -1,0 +1,35 @@
+{
+  "inputs": [
+    {
+      "id": "jira_url",
+      "type": "promptString",
+      "description": "Jira-Basis-URL (z. B. https://jira.example.com)"
+    },
+    {
+      "id": "jira_token",
+      "type": "promptString",
+      "description": "Jira Personal Access Token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "jira": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "JIRA_URL",
+        "-e", "JIRA_PERSONAL_TOKEN",
+        "ghcr.io/sooperset/mcp-atlassian:latest"
+      ],
+      "env": {
+        "JIRA_URL": "${input:jira_url}",
+        "JIRA_PERSONAL_TOKEN": "${input:jira_token}"
+      }
+    }
+  }
+}

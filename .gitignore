@@ -1,0 +1,16 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/healthhub/test-results/
+/healthhub/playwright-report/
+/healthhub/tests/bdd-generated/
+/healthhub/.env
+/healthhub/env.local.json
+.idea/*
+# IDE
+.idea/

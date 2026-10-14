@@ -1,0 +1,27 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:healthhub": "bddgen --config healthhub/playwright.config.ts && playwright test --config=healthhub/playwright.config.ts",
+    "test:healthhub:headed": "bddgen --config healthhub/playwright.config.ts && playwright test --config=healthhub/playwright.config.ts --headed",
+    "report:healthhub": "playwright show-report healthhub/playwright-report",
+    "bdd:healthhub": "cucumber-js --config healthhub/cucumber.cjs",
+    "bdd:healthhub:headed": "cross-env HEALTHHUB_HEADLESS=false cucumber-js --config healthhub/cucumber.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "cross-env": "^10.1.0",
+    "playwright-bdd": "^9.2.1",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

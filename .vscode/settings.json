@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.feature": "feature"
+  },
+  "cucumberautocomplete.syncfeatures": "healthhub/features/**/*.feature",
+  "cucumberautocomplete.steps": [
+    "healthhub/features/playwright-steps/**/*.ts"
+  ],
+  "cucumberautocomplete.strictGherkinCompletion": false
+}

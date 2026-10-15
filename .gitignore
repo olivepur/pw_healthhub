@@ -14,3 +14,6 @@ node_modules/
 .idea/*
 # IDE
 .idea/
+/api/test-results/
+/api/playwright-report/
+/api/env.local.json

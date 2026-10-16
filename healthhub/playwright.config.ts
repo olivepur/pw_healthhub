@@ -34,6 +34,7 @@ export default defineConfig({
   use: {
     baseURL: 'https://healthhub.qualintia.com',
     trace: 'retain-on-failure',
+    proxy: process.env.HTTPS_PROXY ? { server: process.env.HTTPS_PROXY } : undefined,
     ...devices['Desktop Chrome'],
   },
   projects: [
@@ -43,7 +44,7 @@ export default defineConfig({
     {
       name: 'healthhub-spec',
       testDir: './tests',
-      testMatch: 'healthhub.spec.ts',
+      testMatch: ['*.spec.ts'],
     },
   ],
 });

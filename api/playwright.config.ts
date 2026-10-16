@@ -3,14 +3,28 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 // Restful-Booker: offene Übungs-API, https://restful-booker.herokuapp.com/apidoc/index.html
-const credentialsPath = resolve(__dirname, 'env.local.json');
-try {
-  const credentials = JSON.parse(readFileSync(credentialsPath, 'utf8')) as {
-    username?: string;
-    password?: string;
+type LocalConfig = {
+  baseURL?: string;
+  username?: string;
+  password?: string;
+  bookingData?: {
+    firstname?: string;
+    lastname?: string;
+    totalprice?: number;
+    depositpaid?: boolean;
+    bookingdates?: { checkin?: string; checkout?: string };
+    additionalneeds?: string;
   };
-  process.env.BOOKER_USERNAME ??= credentials.username;
-  process.env.BOOKER_PASSWORD ??= credentials.password;
+};
+
+const credentialsPath = resolve(__dirname, 'env.local.json');
+let localConfig: LocalConfig = {};
+try {
+  localConfig = JSON.parse(readFileSync(credentialsPath, 'utf8')) as LocalConfig;
+  process.env.BOOKER_USERNAME ??= localConfig.username;
+  process.env.BOOKER_PASSWORD ??= localConfig.password;
+  process.env.BOOKER_BASE_URL ??= localConfig.baseURL;
+  process.env.BOOKER_TEST_DATA ??= JSON.stringify(localConfig.bookingData ?? {});
 } catch (error) {
   if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
     throw new Error(`Could not read Restful-Booker credentials from ${credentialsPath}: ${String(error)}`);
@@ -30,7 +44,7 @@ export default defineConfig({
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   outputDir: 'test-results',
   use: {
-    baseURL: 'https://restful-booker.herokuapp.com',
+    baseURL: process.env.BOOKER_BASE_URL ?? 'https://restful-booker.herokuapp.com',
     extraHTTPHeaders: {
       Accept: 'application/json',
     },

@@ -6,6 +6,7 @@
   "scripts": {
     "test:healthhub": "bddgen --config healthhub/playwright.config.ts && playwright test --config=healthhub/playwright.config.ts",
     "test:healthhub:headed": "bddgen --config healthhub/playwright.config.ts && playwright test --config=healthhub/playwright.config.ts --headed",
+    "test:healthhub:spec": "playwright test --config=healthhub/playwright.config.ts --project=healthhub-spec",
     "report:healthhub": "playwright show-report healthhub/playwright-report",
     "test:api": "playwright test --config=api/playwright.config.ts",
     "report:api": "playwright show-report api/playwright-report"

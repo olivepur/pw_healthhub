@@ -10,14 +10,21 @@ export type Booking = {
 };
 
 export function newBooking(overrides: Partial<Booking> = {}): Booking {
+  const configured = process.env.BOOKER_TEST_DATA
+    ? JSON.parse(process.env.BOOKER_TEST_DATA) as Partial<Booking>
+    : {};
+  const generatedLastname = `${configured.lastname ?? 'Test'}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
   return {
     firstname: 'Playwright',
-    lastname: `Test-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    lastname: generatedLastname,
     totalprice: 150,
     depositpaid: true,
     bookingdates: { checkin: '2026-11-01', checkout: '2026-11-03' },
     additionalneeds: 'Breakfast',
+    ...configured,
     ...overrides,
+    lastname: overrides.lastname ?? generatedLastname,
   };
 }
 
